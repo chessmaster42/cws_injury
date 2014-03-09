@@ -35,9 +35,12 @@ Script Setup
 ==========
 
 1. Add the following line to your init.sqf file:
+```php
 call compile preprocessFile "cws_injury\cws_init.sqf";
+```
 
 2. Add the following to your description.ext:
+```php
 class CfgFunctions
 {
 	#include "cws_injury\cfgFunctionsCWS.hpp"
@@ -46,7 +49,7 @@ class RscTitles
 {
 	#include "cws_injury\dialogs\RscTitlesCWS.hpp"
 };
-
+```
 3. Configure settings in cws_injury\cws_config.sqf
 
 Mod Setup
