@@ -38,7 +38,6 @@ Script Setup
 ```php
 call compile preprocessFile "cws_injury\cws_init.sqf";
 ```
-
 2. Add the following to your description.ext:
 ```php
 class CfgFunctions
@@ -59,7 +58,7 @@ TODO - Add mod setup instructions
 
 Credits
 ==========
--	Psychobastard for the A3 Wounding system upon which this is based
+-	Psychobastard for the A3 Wounding system upon which this is based [Source](http://forums.bistudio.com/showthread.php?170975-A3-Wounding-System)
 -	BonInf* for the first multiplayer compatible version (Arma 2)
 -	EightSix for his PatrolOps and the included status bar
 -	BI for the design idea (Wounding module Arma 2)
