@@ -66,4 +66,10 @@ Credits
 Changelog
 ==========
 
+v1.0.1 - Minor bug fixes
+--Fixed persistent "You are dead." message
+--Fixed death after respawn
+--Fixed possible bleeding bug
+--Fixed side chat message setting check
+
 v1.0.0 - Initial release
