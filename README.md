@@ -1,8 +1,8 @@
 Chessmaster's Wounding System for Arma 3
-==========
+========================================
 
-Features
-----------
+Core Features
+--------
 -	fully AI compatible
 -	fully MP and JIP compatible
 -	very low usage of network traffic (nearly 100% local on clients)
@@ -26,45 +26,55 @@ Features
 -	deadcam dialog implemented
 -	a famous quote about war displayed during deadcam dialog
 
+Zeus Features
+-------------
+-	Configure CWS module
+-	Failsafe reload module
+-	Load CWS module
+-	Revive Unit module
+
 Known Issues
-----------
+------------
 -	AI don't always run the healing animation while performing First Aid
 -	Players may sometimes die once again immediately after respawn
+-	Zeus respawn mechanism sometimes interferes with the one in this system
+-	Mines don't do the appropriate amount of damage to units that have this system loaded
 
 Script Setup
-==========
+============
 
-1. Add the following line to your init.sqf file:
-```php
-call compile preprocessFile "cws_injury\cws_init.sqf";
-```
-2. Add the following to your description.ext:
+1. Add the following to your description.ext:
 ```php
 class CfgFunctions
 {
-	#include "cws_injury\cfgFunctionsCWS.hpp"
+	#include "cws_injury\cfgFunctions.hpp"
 };
 class RscTitles
 {
-	#include "cws_injury\dialogs\RscTitlesCWS.hpp"
+	#include "cws_injury\rscTitles.hpp"
 };
 ```
-3. Configure settings in cws_injury\cws_config.sqf
+3. Configure settings in cws_injury\functions\init\fn_initCWS.sqf
 
 Mod Setup
-==========
+=========
 
-TODO - Add mod setup instructions
+1. Extract the @CWS folder to your mods directory
+2. Add @CWS to your launch parameters
+2. Configure settings with the module "CWS Config"
 
 Credits
-==========
+=======
 -	Psychobastard for the A3 Wounding system upon which this is based [Source](http://forums.bistudio.com/showthread.php?170975-A3-Wounding-System)
 -	BonInf* for the first multiplayer compatible version (Arma 2)
 -	EightSix for his PatrolOps and the included status bar
 -	BI for the design idea (Wounding module Arma 2)
 
 Changelog
-==========
+=========
+
+v1.1.0 - Mod version of CWS released!
+--Tons of bug fixes
 
 v1.0.1 - Minor bug fixes
 --Fixed persistent "You are dead." message
