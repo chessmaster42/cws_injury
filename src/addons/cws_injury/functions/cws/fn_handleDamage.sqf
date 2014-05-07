@@ -12,11 +12,12 @@ _scaled_damage = _damage / (cws_ais_rambofactor max 1);
 _agony = false;
 
 if(cws_ais_debugging) then {
-	//diag_log format["%1 took %2 damage in the %3 from %4", _unit, _scaled_damage, _bodypart, _source];
+	diag_log format["%1 might take %2 damage in the %3 from %4 with %5", _unit, _damage, _bodypart, _source, _ammo];
 };
 
 //Stop any damage that doesn't have a source defined
 //This is a known bug with HandleDamage EVH
+//TODO - Check and see if this is still needed
 if(isNull _source) exitWith {0};
 
 //Skip over the unit if it's not local
@@ -46,7 +47,7 @@ switch _bodypart do {
 	case "body" : {
 		_part_total_damage = (_unit getVariable "cws_ais_bodyhit") + _scaled_damage;
 		_unit setVariable ["cws_ais_bodyhit", _part_total_damage];
-		if (_part_total_damage >= 0.9) then {
+		if (_part_total_damage >= cws_ais_damage_limit) then {
 			_agony = true;
 		} else {
 			_unit setHit ["body", _part_total_damage];
@@ -55,7 +56,7 @@ switch _bodypart do {
 	case "head" : {
 		_part_total_damage = (_unit getVariable "cws_ais_headhit") + _scaled_damage * 2;
 		_unit setVariable ["cws_ais_headhit", _part_total_damage];
-		if (_part_total_damage >= 0.9) then {
+		if (_part_total_damage >= cws_ais_damage_limit) then {
 			_agony = true;
 		} else {
 			_unit setHit ["head", _part_total_damage];
@@ -64,7 +65,7 @@ switch _bodypart do {
 	case "legs" : {
 		_part_total_damage = (_unit getVariable "cws_ais_legshit") + _scaled_damage;
 		_unit setVariable ["cws_ais_legshit", _part_total_damage];
-		if (_part_total_damage >= 1.8) then {
+		if (_part_total_damage >= (cws_ais_damage_limit * 2)) then {
 			_agony = true;
 		} else {
 			_unit setHit ["legs", _part_total_damage];
@@ -73,7 +74,7 @@ switch _bodypart do {
 	case "legs_l" : {
 		_part_total_damage = (_unit getVariable "cws_ais_legshit") + _scaled_damage;
 		_unit setVariable ["cws_ais_legshit", _part_total_damage];
-		if (_part_total_damage >= 1.8) then {
+		if (_part_total_damage >= (cws_ais_damage_limit * 2)) then {
 			_agony = true;
 		} else {
 			_unit setHit ["legs", _part_total_damage];
@@ -82,7 +83,7 @@ switch _bodypart do {
 	case "legs_r" : {
 		_part_total_damage = (_unit getVariable "cws_ais_legshit") + _scaled_damage;
 		_unit setVariable ["cws_ais_legshit", _part_total_damage];
-		if (_part_total_damage >= 1.8) then {
+		if (_part_total_damage >= (cws_ais_damage_limit * 2)) then {
 			_agony = true;
 		} else {
 			_unit setHit ["legs", _part_total_damage];
@@ -91,7 +92,7 @@ switch _bodypart do {
 	case "hands" : {
 		_part_total_damage = (_unit getVariable "cws_ais_handshit") + _scaled_damage;
 		_unit setVariable ["cws_ais_handshit", _part_total_damage];
-		if (_part_total_damage >= 2.3) then {
+		if (_part_total_damage >= (cws_ais_damage_limit * 3)) then {
 			_agony = true;
 		} else {
 			_unit setHit ["hands", _part_total_damage];
@@ -100,7 +101,7 @@ switch _bodypart do {
 	case "hands_l" : {
 		_part_total_damage = (_unit getVariable "cws_ais_handshit") + _scaled_damage;
 		_unit setVariable ["cws_ais_handshit", _part_total_damage];
-		if (_part_total_damage >= 2.3) then {
+		if (_part_total_damage >= (cws_ais_damage_limit * 3)) then {
 			_agony = true;
 		} else {
 			_unit setHit ["hands", _part_total_damage];
@@ -109,7 +110,7 @@ switch _bodypart do {
 	case "hands_r" : {
 		_part_total_damage = (_unit getVariable "cws_ais_handshit") + _scaled_damage;
 		_unit setVariable ["cws_ais_handshit", _part_total_damage];
-		if (_part_total_damage >= 2.3) then {
+		if (_part_total_damage >= (cws_ais_damage_limit * 3)) then {
 			_agony = true;
 		} else {
 			_unit setHit ["hands", _part_total_damage];
@@ -118,7 +119,7 @@ switch _bodypart do {
 	default {
 		_part_total_damage = (_unit getVariable "cws_ais_overall") + _scaled_damage;
 		_unit setVariable ["cws_ais_overall", _part_total_damage];
-		if (_part_total_damage >= 0.9) then {
+		if (_part_total_damage >= cws_ais_damage_limit) then {
 			_agony = true;
 		};
 	};
