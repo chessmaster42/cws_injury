@@ -54,14 +54,14 @@ class RscTitles
 	#include "cws_injury\rscTitles.hpp"
 };
 ```
-3. Configure settings in cws_injury\functions\init\fn_initCWS.sqf
+2. Configure settings in cws_injury\functions\init\fn_initCWS.sqf
 
 Mod Setup
 =========
 
 1. Extract the @CWS folder to your mods directory
 2. Add @CWS to your launch parameters
-2. Configure settings with the module "CWS Config"
+3. Configure settings with the module "CWS Config"
 
 Credits
 =======
