@@ -38,7 +38,7 @@ Known Issues
 -	AI don't always run the healing animation while performing First Aid
 -	Players may sometimes die once again immediately after respawn
 -	Zeus respawn mechanism sometimes interferes with the one in this system
--	Mines don't do the appropriate amount of damage to units that have this system loaded
+-	Mines don't always do the appropriate amount of damage to units
 
 Script Setup
 ============
@@ -73,13 +73,17 @@ Credits
 Changelog
 =========
 
-v1.1.0 - Mod version of CWS released!
---Tons of bug fixes
-
-v1.0.1 - Minor bug fixes
---Fixed persistent "You are dead." message
---Fixed death after respawn
---Fixed possible bleeding bug
---Fixed side chat message setting check
-
-v1.0.0 - Initial release
+-	v1.1.2 Released
+  - Fixed bug with Revive Unit module
+-	v1.1.0 Released
+  - Mod version of CWS released!
+  - Reworked the AI mechanisms when calling for help and looking for wounded
+  - Reworked the bleeding mechanism to pause better when being healed
+  - Added Zeus modules (mod version only)
+  - Tons of bug fixes
+-	v1.0.1 Released
+  - Fixed persistent "You are dead." message
+  - Fixed death after respawn
+  - Fixed possible bleeding bug
+  - Fixed side chat message setting check
+-	v1.0.0 Initial release
