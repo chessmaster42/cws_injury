@@ -1,4 +1,3 @@
-#include "\A3\ui_f\hpp\defineResincl.inc"
 #include "\A3\ui_f_curator\ui\defineResinclDesign.inc"
 
 //RscDisplayAttributeModuleCWSEnableDebugging

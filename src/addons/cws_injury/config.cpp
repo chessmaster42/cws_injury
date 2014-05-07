@@ -5,6 +5,7 @@ class CfgPatches
 		units[] = {
 				"cws_injury_ModuleConfig",
 				"cws_injury_ModuleCWSLoad",
+				"cws_injury_ModuleDamageUnit",
 				"cws_injury_ModuleEmpty",
 				"cws_injury_ModuleFailsafeReload",
 				"cws_injury_ModuleRevive"

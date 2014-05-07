@@ -13,12 +13,14 @@ class cws_injury
 	{
 		file = "\cws_injury\functions\modules";
 		class moduleCWSLoad{};
+		class moduleDamageUnit{};
 		class moduleFailsafeReload{};
 		class moduleRevive{};
 	};
 	class loaders
 	{
 		file = "\cws_injury\functions\loaders";
+		class loadConfigSetting{};
 		class loadCWS{};
 		class loadUnitChat{};
 	};
@@ -61,5 +63,6 @@ class cws_injury
 		class reviveUnit{};
 		class canHeal{};
 		class setHealingProgress{};
+		class damageUnit{};
 	};
 };

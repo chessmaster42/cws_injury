@@ -45,3 +45,12 @@ class cws_injury_ModuleRevive: cws_injury_ModuleBase
 	displayName = "Revive Unit";
 	function = "cws_fnc_ModuleRevive";
 };
+class cws_injury_ModuleDamageUnit: cws_injury_ModuleBase
+{
+	subCategory = "Unit";
+
+	scopeCurator = 2;
+
+	displayName = "Damage Unit";
+	function = "cws_fnc_ModuleDamageUnit";
+};

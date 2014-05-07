@@ -28,15 +28,15 @@ _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 
 	//Update the config with the new values
 	_ctrl = _display displayCtrl 43032;
-	cws_ais_revive_guaranty = cbChecked _ctrl;
+	[["cws_ais_revive_guaranty", (cbChecked _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43034;
-	cws_ais_allow_self_revive = cbChecked _ctrl;
+	[["cws_ais_allow_self_revive", (cbChecked _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43036;
-	cws_ais_show_injury_marker = if(cbChecked _ctrl) then {1} else {0};
+	[["cws_ais_show_injury_marker", (if(cbChecked _ctrl) then {1} else {0})], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43038;
-	cws_ais_show_injury_message = if(cbChecked _ctrl) then {1} else {0};
+	[["cws_ais_show_injury_message", (if(cbChecked _ctrl) then {1} else {0})], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43040;
-	cws_ais_show_3d_icons = if(cbChecked _ctrl) then {1} else {0};
+	[["cws_ais_show_3d_icons", (if(cbChecked _ctrl) then {1} else {0})], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43042;
-	cws_ais_dead_dialog = if(cbChecked _ctrl) then {1} else {0};
+	[["cws_ais_dead_dialog", (if(cbChecked _ctrl) then {1} else {0})], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 }];

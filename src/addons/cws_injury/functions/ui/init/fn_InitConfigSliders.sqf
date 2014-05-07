@@ -51,15 +51,15 @@ _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 
 	//Update the config with the new values
 	_ctrl = _display displayCtrl 43052;
-	cws_ais_rambofactor = sliderPosition _ctrl;
+	[["cws_ais_rambofactor", (sliderPosition _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43054;
-	cws_ais_random_lifetime_factor = sliderPosition _ctrl;
+	[["cws_ais_random_lifetime_factor", (sliderPosition _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43056;
-	cws_ais_3d_icon_range = sliderPosition _ctrl;
+	[["cws_ais_3d_icon_range", (sliderPosition _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43058;
-	cws_ais_delTime = sliderPosition _ctrl;
+	[["cws_ais_delTime", (sliderPosition _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43060;
-	cws_ais_firstaid_distance = sliderPosition _ctrl;
+	[["cws_ais_firstaid_distance", (sliderPosition _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43062;
-	cws_ais_damage_limit = sliderPosition _ctrl;
+	[["cws_ais_damage_limit", (sliderPosition _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 }];

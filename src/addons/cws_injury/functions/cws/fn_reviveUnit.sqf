@@ -19,3 +19,5 @@ if(!isPlayer _unit) then {
 };
 
 _unit setVariable ["cws_ais_agony", false, true];
+
+_unit setVariable ["healer", objnull, true];

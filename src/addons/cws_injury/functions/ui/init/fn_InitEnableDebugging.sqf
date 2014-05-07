@@ -30,6 +30,7 @@ _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 	_display = ctrlParent (_this select 0);
 	_ctrl = _display displayCtrl 43012;
 	_newDebugging = if((_ctrl lbValue lbCurSel _ctrl) > 0) then {true} else {false};
-	missionnamespace setVariable ["cws_injury_Config_Debugging", _newDebugging];
-	cws_ais_debugging = _newDebugging;
+
+	[["cws_injury_Config_Debugging", _newDebugging], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
+	[["cws_ais_debugging", _newDebugging], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 }];
