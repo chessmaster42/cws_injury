@@ -6,17 +6,24 @@ _unit = _this select 0;
 _healer = if (count _this > 1) then {_this select 1} else {nil};
 _excludeUnit = if (count _this > 2) then {_this select 2} else {nil};
 
-//If the unit is not defined, exit
-if(isNull (_unit)) exitWith {};
+//Bail out if the unit isn't valid
+if(isNil "_unit") exitWith {};
+if(isNull _unit) exitWith {};
 
-//If the unit is no longer alive, exit
+//Bail out if the unit is no longer alive
 if(!alive _unit) exitWith {};
 
 //If the unit is no longer in agony, exit
-if(!(_unit getVariable "cws_ais_agony")) exitWith {};
+if(!(_unit getVariable ["cws_ais_agony", false])) exitWith {};
 
 //If the unit already has a healer, exit
-if(!isNull (_unit getVariable "healer")) exitWith {};
+if(!isNull (_unit getVariable ["healer", objnull])) exitWith {};
+
+//If the unit is already calling for help, exit
+if(_unit getVariable ["cws_injury_SendAIHealer", false]) exitWith {};
+
+//Set a flag to indicate the start of the call for help
+_unit setVariable ["cws_injury_SendAIHealer", true];
 
 //Wait a random amount of time to stagger AI behaviours
 sleep (5 + random 2);
@@ -143,11 +150,18 @@ if (!isNil "_healer") then {
 //Wait a bit, calculate a new closest squadmate, and exit
 if (isNil "_healer") exitWith {
 	sleep 15;
+
+	//Unset the flag
+	_unit setVariable ["cws_injury_SendAIHealer", false];
+
 	if(cws_ais_debugging) then {
 		[format ["%1 is calling for more help!", _unit], 2] call ccl_fnc_ShowMessage;
 	};
 	[_unit] spawn cws_fnc_sendAIHealer;
 };
+
+//Unset the flag
+_unit setVariable ["cws_injury_SendAIHealer", false];
 
 //Otherwise start first aid with the closest squadmate as the healer
 [_unit, _healer] spawn cws_fnc_firstAid;

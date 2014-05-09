@@ -69,22 +69,29 @@ cws_ais_killcam_quotes = [
 	//Globally load the system on all playable units
 	[[nil, 3], "cws_fnc_LoadCWS"] call ccl_fnc_GlobalExec;
 
-	//Load the curator icons
-	{
-		if(isServer && isDedicated) exitWith {};
-
+	//Load the curator 3D icons
+	if(isServer && isDedicated) then {
+		//Skip 3D icon loading for dedicated servers
+	} else {
+		//Only continue if the player is a curator
 		if([player] call ccl_fnc_IsZeusCurator) then
 		{
-			//Load the 3D icons client-side for curators
-			_3dIcons = addMissionEventHandler ["Draw3D", {[] call cws_fnc_DrawCuratorIcons}];
-			_x setVariable ["cws_injury_Curator_3DIconHandler", _3dIcons];
+			{
+				_curatorUnit = getAssignedCuratorUnit _x;
 
-			//Make sure that the curator unit has a radio item
-			_curatorUnit = getAssignedCuratorUnit _x;
-			_curatorUnit addItem "ItemRadio";
-			_curatorUnit assignItem "ItemRadio";
+				if(_curatorUnit == player) exitWith {
+					[format ["Adding 3D icon handler to %1 ...", player], 2, ["CWS"]] call ccl_fnc_ShowMessage;
+			
+					//Load the 3D icon handler
+					_3d = addMissionEventHandler ["Draw3D", {[] call cws_fnc_DrawCuratorIcons}];
+			
+					//Make sure that the curator unit has a radio item
+					player addItem "ItemRadio";
+					player assignItem "ItemRadio";
+				};
+			} foreach allCurators;
 		};
-	} foreach allCurators;
+	};
 
 	["Initialized", 2, ["CWS"]] call ccl_fnc_ShowMessage;
 };

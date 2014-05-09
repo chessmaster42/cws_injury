@@ -11,10 +11,6 @@ _ammo		= _this select 4;
 _scaled_damage = _damage / (cws_ais_rambofactor max 1);
 _agony = false;
 
-if(cws_ais_debugging) then {
-	[format ["%1 might take %2 damage in the %3 from %4 with %5", _unit, _damage, _bodypart, _source, _ammo], 2] call ccl_fnc_ShowMessage;
-};
-
 //Stop any damage that doesn't have a source defined
 //This is a known bug with HandleDamage EVH
 //TODO - Check and see if this is still needed
@@ -27,6 +23,10 @@ if(!local _unit) exitWith {0};
 if (!alive _unit) exitWith {
 	_unit setVariable ["cws_ais_unit_died", true];
 	0
+};
+
+if(cws_ais_debugging) then {
+	[format ["%1 might take %2 damage in the %3 from %4 with %5", _unit, _damage, _bodypart, _source, _ammo], 2] call ccl_fnc_ShowMessage;
 };
 
 switch _bodypart do {

@@ -1,26 +1,27 @@
 // Authored by chessmaster42
 
-private["_unit","_return","_has_medikit","_has_firstaidkit","_isMedic","_attachedUnit"];
+private["_unit","_has_medikit","_has_firstaidkit","_isMedic"];
 _unit = _this select 0;
-_return = true;
 
+//If the unit is invalid, exit immediately
+if(isNil "_unit") exitWith {false};
+if(isNull _unit) exitWith {false};
+
+//If the unit is dead, exit immediately
+if(!alive _unit) exitWith {false};
+
+//If the unit is in agony, exit immediately
+if(_unit getVariable ["cws_ais_agony", false]) exitWith {false};
+
+//Check that the unit isn't already healing someone
+//TODO - Find a better way than to look at attached objects
+if(count attachedObjects _unit > 0) exitWith {false};
+
+//If the unit has no supplies, exit immediately
 _has_medikit = ((items _unit) find "Medikit" > -1);
 _has_firstaidkit = ((items _unit) find "FirstAidKit" >= 0);
 _isMedic = [_unit] call cws_fnc_isMedic;
+if(!(_has_medikit && _isMedic) && !_has_firstaidkit) exitWith {false};
 
-//If the healer is dead
-if(!alive _unit) then {_return = false};
-
-//If the healer is in agony
-if(_unit getVariable "cws_ais_agony") then {_return = false};
-
-//If the healer has no supplies
-if(!(_has_medikit && _isMedic) && !_has_firstaidkit) then {_return = false};
-
-//Check that the unit isn't already healing someone
-_attachedUnit = attachedTo _unit;
-if(!isNil "_attachedUnit") then {
-	if(!isNull _attachedUnit) then {_return = false};
-};
-
-_return
+//If nothing has failed then we return true
+true

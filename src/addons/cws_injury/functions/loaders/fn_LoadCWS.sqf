@@ -39,7 +39,7 @@ if (isNil "_unit") exitWith {};
 if (isNull _unit) exitWith {};
 
 //If this unit is already loaded then exit
-if (!isNil {_unit getVariable "cws_ais_aisInit"}) exitWith {};
+if (_unit getVariable ["cws_ais_aisInit", false]) exitWith {};
 
 //Bail if we're trying to load on a dead AI unit
 if(!isPlayer _unit && !(alive _unit)) exitWith {};
@@ -79,24 +79,29 @@ _unit setVariable ["cws_ais_aisInit", true];
 };
 
 //Setup the 3D icons if enabled
-if (cws_ais_show_3d_icons == 1) then {
+if (cws_ais_show_3d_icons == 1 && (_unit == player)) then {
 	_3d = addMissionEventHandler ["Draw3D", {
 		_player_is_medic = [player] call cws_fnc_isMedic;
 		_playerFaction = side (group player);
 		{
 			if((side _x) == _playerFaction) then {
 				{
-					if ((_x distance player) < cws_ais_3d_icon_range && (_x getVariable "cws_ais_agony") && (alive _x)) then {
-						_message = format["%1 (%2m)", name _x, ceil (player distance _x)];
-						_icon_size = 0.5;
-						_text_size = 0.025;
-						if(_player_is_medic) then {
-							_life_remaining = _x getVariable "cws_ais_bleedout_time";
-							_message = _message + format[" (%1%2)", ceil (_life_remaining * 100), "%"];
-							_icon_size = 1.0;
-							_text_size = 0.05;
+					if(alive _x) then {
+						_distance = ceil (_x distance player);
+						if (_distance < cws_ais_3d_icon_range && (_x getVariable ["cws_ais_agony", false])) then {
+							_message = format["%1 (%2m)", name _x, _distance];
+							_icon_size = 0.5;
+							_text_size = 0.025;
+							_iconColor = [1,0,0,1];
+							_pos = visiblePosition _x;
+							if(_player_is_medic) then {
+								_life_remaining = _x getVariable "cws_ais_bleedout_time";
+								_message = _message + format[" (%1%2)", ceil (_life_remaining * 100), "%"];
+								_icon_size = 1.0;
+								_text_size = 0.05;
+							};
+							drawIcon3D["a3\ui_f\data\map\MapControl\hospital_ca.paa", _iconColor, _pos, _icon_size, _icon_size, 0, _message, 0, _text_size];
 						};
-						drawIcon3D["a3\ui_f\data\map\MapControl\hospital_ca.paa", [1,0,0,1], _x, _icon_size, _icon_size, 0, _message, 0, _text_size];
 					};
 				} forEach units _x;
 			};
