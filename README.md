@@ -73,6 +73,30 @@ Credits
 Changelog
 =========
 
+-	v1.1.3 Released
+  - Added Damage Unit module that is the antithesis of the Revive Unit module
+  - Changed config settings to execute globally
+  - Updated CCL to 1.0.2 (Fixed missing unit chat function in CCL)
+  - Reorganized a few functions
+  - Added curator icons (moved in from CPM)
+  - Fixed error handling in canHeal
+  - Changed syntax of isMedic to match the general syntax of all other function parameters
+  - Fixed bug with showMessage in cws_fnc_carry
+  - Fixed bug with showMessage in cws_fnc_drag
+  - Turned off death dialog by default
+  - Added extra error check in loadCWS
+  - Fixed bug with showMessage in loadCWS
+  - Fixed wording in moduleCWSLoad
+  - Removed unnecessary global 'cws_injury_Config_Debugging'
+  - Fixed bug with curator icons (maybe)
+  - Started work on damage handler revamp
+  - Improved performance and error handling for drawing 3D icons (both curator and wounded unit icons)
+  - Improved reliability of canHeal function
+  - Improved performance and error handling for lookingForWoundedMates
+  - Improved performance and error handling for sendAIHealer
+  - Cleaned up debugging output
+  - Added mutex flag to indicated if a unit is actively healing another unit (used to improve canHeal function)
+  - Improved readability and reliability of isHealable function
 -	v1.1.2 Released
   - Fixed bug with Revive Unit module
 -	v1.1.0 Released
