@@ -11,8 +11,8 @@ cws_ais_debugging = false;
 			if(isNull _x) then {
 				//Do nothing
 			} else {
-				//If the unit is within 1km, has CWS loaded, and is alive
-				if ((_x distance player) < 1000 && (_x getVariable "cws_ais_aisInit") && (alive _x)) then {
+				//If the unit has CWS loaded and is alive
+				if ((_x getVariable ["cws_ais_aisInit", false]) && (alive _x)) then {
 					//Build the config for the icon
 					_unitDamage = [_x] call cws_fnc_GetUnitDamage;
 					_iconColor = [1, 1 - _unitDamage, 1 - _unitDamage, 0.5 + _unitDamage * 0.5];
@@ -25,7 +25,7 @@ cws_ais_debugging = false;
 				
 					//Add bleedout time if the unit is in agony
 					if(_x getVariable "cws_ais_agony") then {
-						_life_remaining = _x getVariable "cws_ais_bleedout_time";
+						_life_remaining = _x getVariable ["cws_ais_bleedout_time", 0];
 						_message = _message + format[" (%1%2)", ceil (_life_remaining * 100), "%"];
 				
 						//Add healing percentage if the unit is being healed
