@@ -7,7 +7,7 @@ _control ctrlRemoveAllEventHandlers "setFocus";
 //Get the display for the dialog
 _display = ctrlParent _control;
 
-_isDebugging = missionnamespace getVariable ["cws_injury_Config_Debugging", false];
+_isDebugging = missionnamespace getVariable ["cws_ais_debugging", false];
 
 //Configure the list box
 _ctrl = _display displayCtrl 43012;
@@ -31,6 +31,5 @@ _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 	_ctrl = _display displayCtrl 43012;
 	_newDebugging = if((_ctrl lbValue lbCurSel _ctrl) > 0) then {true} else {false};
 
-	[["cws_injury_Config_Debugging", _newDebugging], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	[["cws_ais_debugging", _newDebugging], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 }];

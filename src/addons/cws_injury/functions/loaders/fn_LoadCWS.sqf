@@ -36,6 +36,7 @@ if(!isNil "_appliesTo") then {
 
 //Make sure that _unit is valid
 if (isNil "_unit") exitWith {};
+if (isNull _unit) exitWith {};
 
 //If this unit is already loaded then exit
 if (!isNil {_unit getVariable "cws_ais_aisInit"}) exitWith {};
@@ -80,7 +81,7 @@ _unit setVariable ["cws_ais_aisInit", true];
 //Setup the 3D icons if enabled
 if (cws_ais_show_3d_icons == 1) then {
 	_3d = addMissionEventHandler ["Draw3D", {
-		_player_is_medic = player call cws_fnc_isMedic;
+		_player_is_medic = [player] call cws_fnc_isMedic;
 		_playerFaction = side (group player);
 		{
 			if((side _x) == _playerFaction) then {
@@ -146,7 +147,7 @@ if (cws_ais_dead_dialog == 1) then {
 
 //If this unit is the local player show a hint to let them know CWS is loaded
 if (_unit == player) then {
-	["CWS Loaded", 7, "CWS"] call ccl_fnc_ShowMessage;
+	["CWS Loaded", 7, ["CWS"]] call ccl_fnc_ShowMessage;
 };
 
 //Message to side chat so that everyone knows when units on their side have CWS loaded
@@ -163,7 +164,3 @@ if(local _unit) then {
 } else {
 	[format["%1 (Remote) - CWS Loaded!", _unit], 2] call ccl_fnc_ShowMessage;
 };
-
-_cwsUnitsArray = missionnamespace getVariable ["curatorPresets_CWS_Units", []];
-_cwsUnitsArray = _cwsUnitsArray + [_unit];
-missionnamespace setVariable ["curatorPresets_CWS_Units", _cwsUnitsArray];

@@ -2,7 +2,7 @@
 // Based on 'A3 Wounding System' by Psychobastard
 
 private ["_healer","_isMedic"];
-_healer = _this;
+_healer = _this select 0;
 
 //Check if the class of the healer contains the attendant attribute
 //TODO - Improvements to allow more unit types to be healers

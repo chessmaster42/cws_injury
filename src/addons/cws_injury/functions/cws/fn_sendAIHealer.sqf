@@ -69,7 +69,7 @@ if(!isNil "_excludeUnit") then {
 if (isNil "_healer") then {
 	_min_distance = 100000;
 	{
-		_isMedic = _x call cws_fnc_isMedic;
+		_isMedic = [_x] call cws_fnc_isMedic;
 		_distance = _unit distance _x;
 		_canHeal = [_x] call cws_fnc_canHeal;
 		if (_distance < _min_distance && {!isPlayer _x} && _isMedic && _canHeal) then {

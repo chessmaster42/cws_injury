@@ -9,6 +9,13 @@ class cws_injury
 		class initCWS{preInit = 1;};
 		class initCWSGUI{preInit = 1;};
 	};
+	class common
+	{
+		file = "\cws_injury\functions\common";
+		class damageUnit{};
+		class drawCuratorIcons{};
+		class reviveUnit{};
+	};
 	class modules
 	{
 		file = "\cws_injury\functions\modules";
@@ -22,7 +29,6 @@ class cws_injury
 		file = "\cws_injury\functions\loaders";
 		class loadConfigSetting{};
 		class loadCWS{};
-		class loadUnitChat{};
 	};
 	class ui_init
 	{
@@ -35,34 +41,32 @@ class cws_injury
 	class cws
 	{
 		file = "\cws_injury\functions\cws";
-		class handleDamage{};
-		class keyUnbind{};
-		class firstAid{};
-		class isHealable{};
-		class progressBar{};
-		class isMedic{};
-		class drag{};
+		class canHeal{};
 		class carry{};
-		class drop{};
-		class injuredEffects{};
-		class progressBarInit{};
-		class sendAIHealer{};
-		class delbody{};
-		class quote{};
-		class deadcam{};
-		class lookingForWoundedMates{};
 		class checklauncher{};
-		class setUnitDamage{};
-		class getUnitDamage{};
 		class cleanUpActions{};
+		class deadcam{};
+		class delbody{};
+		class drag{};
+		class drop{};
+		class firstAid{};
+		class getUnitDamage{};
+		class handleDamage{};
 		class handleHeal{};
 		class handleKeys{};
+		class injuredEffects{};
+		class isHealable{};
+		class isMedic{};
+		class keyUnbind{};
+		class lookingForWoundedMates{};
+		class progressBar{};
+		class progressBarInit{};
+		class quote{};
+		class sendAIHealer{};
+		class setHealer{};
+		class setHealingProgress{};
+		class setUnitDamage{};
 		class setupActions{};
 		class setupUnitVariables{};
-		class setHealer{};
-		class reviveUnit{};
-		class canHeal{};
-		class setHealingProgress{};
-		class damageUnit{};
 	};
 };

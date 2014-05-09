@@ -25,7 +25,7 @@ if (!_isHealable) exitWith {
 _canHeal = [_healer] call cws_fnc_canHeal;
 _has_medikit = ((items _healer) find "Medikit" > -1);
 _has_firstaidkit = ((items _healer) find "FirstAidKit" >= 0);
-_isMedic = _healer call cws_fnc_isMedic;
+_isMedic = [_healer] call cws_fnc_isMedic;
 
 //If the unit and the healer are the same and it's the player then we are self-reviving
 //This should ONLY ever happen from the medic's special key binding while in agony

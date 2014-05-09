@@ -6,13 +6,13 @@ _dragger = _this select 1;
 _injuredperson	= _this select 3;
 
 if (_injuredperson distance _dragger > 3) exitWith {
-	[format ["%1 is too far away to be dragged.", name _injuredperson]] spawn cws_fnc_showMessage;
+	[format ["%1 is too far away to be dragged.", name _injuredperson]] spawn ccl_fnc_showMessage;
 };
 if (!alive _injuredperson) exitWith {
-	[format ["R.I.P. %1", name _injuredperson]] spawn cws_fnc_showMessage;
+	[format ["R.I.P. %1", name _injuredperson]] spawn ccl_fnc_showMessage;
 };
 if (_dragger call cws_fnc_checklauncher) exitWith {
-	[format ["You cant carry others during you wear a launcher on your back."]] spawn cws_fnc_showMessage;
+	[format ["You cant carry others during you wear a launcher on your back."]] spawn ccl_fnc_showMessage;
 };
 
 if (!isNil "carryaction") then {

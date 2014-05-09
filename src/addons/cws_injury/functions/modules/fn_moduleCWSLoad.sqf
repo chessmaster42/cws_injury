@@ -18,7 +18,7 @@ if (_activated && local _logic && !isnull curatorcamera) then {
 
 	[[_unit, _appliesTo], "cws_fnc_LoadCWS"] spawn ccl_fnc_GlobalExec;
 	
-	[format["%1 is now using CWS at %2", name _unit, mapGridPosition _unit], 3, ["CWS"]] call ccl_fnc_ShowMessage;
+	["CWS is now loading on some units ...", 3, ["CWS"]] call ccl_fnc_ShowMessage;
 	
 	deletevehicle _logic;
 };

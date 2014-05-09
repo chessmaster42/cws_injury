@@ -6,7 +6,7 @@ _return = true;
 
 _has_medikit = ((items _unit) find "Medikit" > -1);
 _has_firstaidkit = ((items _unit) find "FirstAidKit" >= 0);
-_isMedic = _unit call cws_fnc_isMedic;
+_isMedic = [_unit] call cws_fnc_isMedic;
 
 //If the healer is dead
 if(!alive _unit) then {_return = false};
@@ -19,6 +19,8 @@ if(!(_has_medikit && _isMedic) && !_has_firstaidkit) then {_return = false};
 
 //Check that the unit isn't already healing someone
 _attachedUnit = attachedTo _unit;
-if(!isNull _attachedUnit) then {_return = false};
+if(!isNil "_attachedUnit") then {
+	if(!isNull _attachedUnit) then {_return = false};
+};
 
 _return

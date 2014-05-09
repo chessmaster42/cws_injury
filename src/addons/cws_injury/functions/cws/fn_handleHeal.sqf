@@ -7,7 +7,7 @@ _healer = _this select 1;
 
 _has_medikit = ((items _healer) find "Medikit" > -1);
 _has_firstaidkit = ((items _healer) find "FirstAidKit" >= 0);
-_isMedic = _healer call cws_fnc_isMedic;
+_isMedic = [_healer] call cws_fnc_isMedic;
 
 if(!(_isMedic && _has_medikit) && !_has_firstaidkit) exitWith {false};
 
