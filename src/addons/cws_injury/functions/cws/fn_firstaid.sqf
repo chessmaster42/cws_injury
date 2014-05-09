@@ -14,10 +14,12 @@ _healer = _this select 1;
 _isHealable = [_unit] call cws_fnc_isHealable;
 if (!_isHealable) exitWith {
 	if(!isPlayer _healer) then {
-		[format ["%1 cannot heal %2, not healable, looking for others to heal", _healer, _unit], 2] call ccl_fnc_ShowMessage;
+		if(cws_ais_debugging) then {
+			[format ["%1 cannot heal %2, not healable, looking for others to heal", _healer, _unit], 2] call ccl_fnc_ShowMessage;
+		};
 
 		//Look for other injured friends
-		[_healer] call cws_fnc_LookingForWoundedMates;
+		[_healer] spawn cws_fnc_LookingForWoundedMates;
 	};
 };
 
@@ -34,7 +36,9 @@ _self_revive = (_unit == _healer) && (_unit == player) && _isMedic && (_has_medi
 //Stop the healing if the healer can no longer heal
 if (!_canHeal && !_self_revive) exitWith {
 	if(!isPlayer _healer) then {
-		[format ["%1 cannot heal %2, calling for another healer", _healer, _unit], 2] call ccl_fnc_ShowMessage;
+		if(cws_ais_debugging) then {
+			[format ["%1 cannot heal %2, calling for another healer", _healer, _unit], 2] call ccl_fnc_ShowMessage;
+		};
 	
 		//Call for another healer
 		[_unit, nil, _healer] spawn cws_fnc_SendAIHealer;
@@ -47,6 +51,9 @@ if (!_canHeal && !_self_revive) exitWith {
 //Fails if the healer can no longer heal
 //Fails if the unit is no longer healable
 if (!isPlayer _healer && {_healer distance _unit > cws_ais_firstaid_distance}) then {
+	if(cws_ais_debugging) then {
+		[format ["%1 is now moving closer to heal %2", _healer, _unit], 2] call ccl_fnc_ShowMessage;
+	};
 	_healer doMove (position _unit);
 	_timenow = time;
 	WaitUntil {
@@ -65,7 +72,9 @@ if (!isPlayer _healer && {_healer distance _unit > cws_ais_firstaid_distance}) t
 _canHeal = [_healer] call cws_fnc_CanHeal;
 if (!_canHeal && !_self_revive) exitWith {
 	if(!isPlayer _healer) then {
-		[format ["%1 cannot heal %2, calling for another healer", _healer, _unit], 2] call ccl_fnc_ShowMessage;
+		if(cws_ais_debugging) then {
+			[format ["%1 cannot heal %2, calling for another healer", _healer, _unit], 2] call ccl_fnc_ShowMessage;
+		};
 	
 		//Call for another healer
 		[_unit, nil, _healer] spawn cws_fnc_SendAIHealer;
@@ -76,10 +85,12 @@ if (!_canHeal && !_self_revive) exitWith {
 _isHealable = [_unit] call cws_fnc_isHealable;
 if (!_isHealable) exitWith {
 	if(!isPlayer _healer) then {
-		[format ["%1 cannot heal %2, not healable, looking for others to heal", _healer, _unit], 2] call ccl_fnc_ShowMessage;
+		if(cws_ais_debugging) then {
+			[format ["%1 cannot heal %2, not healable, looking for others to heal", _healer, _unit], 2] call ccl_fnc_ShowMessage;
+		};
 
 		//Look for other injured friends
-		[_healer] call cws_fnc_LookingForWoundedMates;
+		[_healer] spawn cws_fnc_LookingForWoundedMates;
 	};
 };
 
@@ -90,13 +101,15 @@ if (_healer distance _unit > cws_ais_firstaid_distance) exitWith {
 			[format ["%1 is too far away to be healed.", name _unit], 0] spawn ccl_fnc_showMessage
 		};
 	} else {
-		[format ["%1 cannot heal %2, too far away, calling for another healer", _healer, _unit], 2] call ccl_fnc_ShowMessage;
+		if(cws_ais_debugging) then {
+			[format ["%1 cannot heal %2, too far away, calling for another healer", _healer, _unit], 2] call ccl_fnc_ShowMessage;
+		};
 
 		//Call for another healer
 		[_unit] spawn cws_fnc_SendAIHealer;
 
 		//Look for other injured friends
-		[_healer] call cws_fnc_LookingForWoundedMates;
+		[_healer] spawn cws_fnc_LookingForWoundedMates;
 	};
 };
 
@@ -111,6 +124,9 @@ if (_healer distance _unit > cws_ais_firstaid_distance) exitWith {
 _unit setVariable ["healer", _healer];
 [[_unit, _healer], "cws_fnc_setHealer"] spawn ccl_fnc_GlobalExec;
 
+//Set the healing in progress flag on the healer
+_healer setVariable ["cws_injury_HealingInProgress", true, true];
+
 _healerStopped = false;
 
 _healer selectWeapon primaryWeapon _healer;
@@ -123,6 +139,7 @@ if (!isPlayer _healer) then {
 	_healer disableAI "MOVE";
 	_healer disableAI "TARGET";
 	_healer disableAI "AUTOTARGET";
+	_healer disableAI "ANIM";
 };
 
 //Start the medic animation as long as this isn't a self-revive
@@ -182,8 +199,8 @@ while {time - _time < _heal_time && {!_healerStopped}} do {
 	_healingProgress = (time - _time) / (_heal_time);
 
 	//If either unit die then stop the healing process
-	if(!alive _unit) exitWith {_healerStopped = true};
-	if(!alive _healer) exitWith {_healerStopped = true};
+	if(!alive _unit) then {_healerStopped = true};
+	if(!alive _healer) then {_healerStopped = true};
 
 	//If the distance between the two somehow goes outside of the range then interrupt the process
 	if((_healer distance _unit) > cws_ais_firstaid_distance) then {_healerStopped = true};
@@ -222,12 +239,16 @@ detach _unit;
 _unit setVariable ["healer", objnull];
 [[_unit, objnull], "cws_fnc_setHealer"] spawn ccl_fnc_GlobalExec;
 
+//Unset the healing in progress flag
+_healer setVariable ["cws_injury_HealingInProgress", false, true];
+
 //If the healer is an AI then start up all other AI tasks
 if (!isPlayer _healer) then {
 	_healer stop false;
 	_healer enableAI "MOVE";
 	_healer enableAI "TARGET";
 	_healer enableAI "AUTOTARGET";
+	_healer enableAI "ANIM";
 };
 
 //If the healer is still healthy and this isn't a self-revive then stop animations and restore behaviour
@@ -246,16 +267,12 @@ if (!_healerStopped) exitWith {
 	//Broadcast unit agony state
 	_unit setVariable ["cws_ais_agony", false, true];
 
-	if(cws_ais_debugging) then {
-		[format ["%1 finished healing %2", _healer, _unit], 2] call ccl_fnc_ShowMessage;
-	};
-
-	[[_unit, 0], "cws_fnc_SetHealingProgress"] call ccl_fnc_GlobalExec;
+	[format ["%1 finished healing %2", _healer, _unit], 2] call ccl_fnc_ShowMessage;
 
 	//AI healers will now look for other units in agony
 	if(!isPlayer _healer) then {
 		//Look for other injured friends
-		[_healer] call cws_fnc_LookingForWoundedMates;
+		[_healer] spawn cws_fnc_LookingForWoundedMates;
 	};
 };
 

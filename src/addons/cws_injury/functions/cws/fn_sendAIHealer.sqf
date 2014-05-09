@@ -119,17 +119,21 @@ if (isNil "_healer") then {
 		//Ensure that the group we're checking is on the same side as the injured unit
 		if((side _x) == _playerFaction) then {
 			{
-				//If a unit exclusion is set, make sure we don't match against them
-				if(!isNil "_excludeUnit") then {
-					if(_x == _excludeUnit) then {_x = objnull};
-				};
-				if(isNull _x) exitWith {};
-
-				_distance = _unit distance _x;
-				_canHeal = [_x] call cws_fnc_canHeal;
-				if (_distance < _min_distance && {!isPlayer _x} && _canHeal && (_unit != _x)) then {
-					_min_distance = _distance;
-					_healer = _x;
+				if(alive _x) then {
+					//If a unit exclusion is set, make sure we don't match against them
+					_unitToCheck = _x;
+					if(!isNil "_excludeUnit") then {
+						if(_unitToCheck == _excludeUnit) then {_unitToCheck = objnull};
+					};
+	
+					if(!isNull _unitToCheck) then {
+						_distance = _unit distance _x;
+						_canHeal = [_x] call cws_fnc_canHeal;
+						if (_distance < _min_distance && {!isPlayer _x} && _canHeal && (_unit != _x)) then {
+							_min_distance = _distance;
+							_healer = _x;
+						};
+					};
 				};
 			} foreach units _x;
 		};

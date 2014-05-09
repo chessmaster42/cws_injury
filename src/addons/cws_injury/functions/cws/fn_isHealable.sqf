@@ -1,10 +1,17 @@
 // Authored by chessmaster42
-// Based on 'A3 Wounding System' by Psychobastard
 
-private["_injured","_return"];
-_injured = _this select 0;
+private["_unit"];
+_unit = _this select 0;
 
-//Return true if the injured is alive, doesn't have a dragger, and doesn't already have a healer
-_return = if (alive _injured && {isNull(_injured getVariable ["dragger", objNull])} && {isNull(_injured getVariable ["healer", objNull])}) then {true} else {false};
+//If the unit is invalid, exit
+if(isNil "_unit") exitWith {false};
+if(isNull _unit) exitWith {false};
 
-_return
+//If the unit is not alive, exit
+if(!alive _unit) exitWith {false};
+
+//If the unit has a dragger or healer, exit
+if(!isNull (_unit getVariable ["dragger", objNull])) exitWith {false};
+if(!isNull (_unit getVariable ["healer", objNull])) exitWith {false};
+
+true

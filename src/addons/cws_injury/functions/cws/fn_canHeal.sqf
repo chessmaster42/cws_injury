@@ -14,8 +14,7 @@ if(!alive _unit) exitWith {false};
 if(_unit getVariable ["cws_ais_agony", false]) exitWith {false};
 
 //Check that the unit isn't already healing someone
-//TODO - Find a better way than to look at attached objects
-if(count attachedObjects _unit > 0) exitWith {false};
+if(_unit getVariable ["cws_injury_HealingInProgress", false]) exitWith {false};
 
 //If the unit has no supplies, exit immediately
 _has_medikit = ((items _unit) find "Medikit" > -1);

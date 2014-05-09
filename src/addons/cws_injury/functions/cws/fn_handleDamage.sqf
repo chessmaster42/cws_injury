@@ -8,6 +8,10 @@ _damage		= _this select 2;
 _source		= _this select 3;
 _ammo		= _this select 4;
 
+if(cws_ais_debugging) then {
+	[format ["%1 might take %2 damage in the %3 from %4 with %5", _unit, _damage, _bodypart, _source, _ammo], 2] call ccl_fnc_ShowMessage;
+};
+
 _scaled_damage = _damage / (cws_ais_rambofactor max 1);
 _agony = false;
 
@@ -26,7 +30,7 @@ if (!alive _unit) exitWith {
 };
 
 if(cws_ais_debugging) then {
-	[format ["%1 might take %2 damage in the %3 from %4 with %5", _unit, _damage, _bodypart, _source, _ammo], 2] call ccl_fnc_ShowMessage;
+	[format ["%1 will take %2 damage in the %3 from %4 with %5", _unit, _scaled_damage, _bodypart, _source, _ammo], 2] call ccl_fnc_ShowMessage;
 };
 
 switch _bodypart do {
