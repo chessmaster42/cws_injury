@@ -5,14 +5,14 @@ private["_injuredperson","_dragger"];
 _injuredperson = _this select 0;
 _dragger = _this select 1;
 
+if (!alive _injuredperson) exitWith {
+	[format ["R.I.P. %1", _injuredperson]] spawn ccl_fnc_showMessage;
+};
 if (!isNull(_injuredperson getVariable ["healer", objnull]) || {!isNull(_injuredperson getVariable ["dragger", objnull])}) exitWith {
 	[format ["%1 is being assisted.", name _injuredperson]] spawn ccl_fnc_showMessage;
 };
 if (_injuredperson distance _dragger > 3) exitWith {
 	[format ["%1 is too far away to be dragged.", name _injuredperson]] spawn ccl_fnc_showMessage;
-};
-if (!alive _injuredperson) exitWith {
-	[format ["R.I.P. %1", name _injuredperson]] spawn ccl_fnc_showMessage;
 };
 
 _injuredperson setVariable ["dragger", _dragger, true];

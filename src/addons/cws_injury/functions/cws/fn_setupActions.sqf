@@ -4,6 +4,13 @@
 private ['_unit','_fa_action','_drag_action'];
 _unit = _this select 0;
 
+//If the unit is invalid, exit immediately
+if(isNil "_unit") exitWith {};
+if(isNull _unit) exitWith {};
+
+//If the unit is dead, exit immediately
+if(!alive _unit) exitWith {};
+
 //Add the First Aid and Drag actions to the unit
 _fa_action = _unit addAction [
 	format["<t color='#F00000'>First Aid to %1</t>", name _unit],

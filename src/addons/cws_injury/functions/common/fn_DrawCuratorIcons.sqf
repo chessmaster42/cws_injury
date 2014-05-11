@@ -1,3 +1,9 @@
+//Don't run for dedicated servers
+if(isServer && isDedicated) exitWith {};
+
+//Don't run for non-curator players
+if(!([player] call ccl_fnc_IsZeusCurator)) exitWith {};
+
 //Backup the CWS debugging state and temporarily turn it off
 _cwsDebugging = cws_ais_debugging;
 cws_ais_debugging = false;

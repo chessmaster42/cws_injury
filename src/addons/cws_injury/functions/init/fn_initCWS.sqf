@@ -67,7 +67,7 @@ cws_ais_killcam_quotes = [
 	//Broadcast our version info
 	_modConfig = (configFile >> "CfgPatches" >> "cws_injury");
 	_version = gettext (_modConfig >> "versionStr");
-	[[format ["Loading CWS v%1", _version], 2, ["CWS"]], "ccl_fnc_ShowMessage", false] call ccl_fnc_GlobalExec;
+	[[format ["%1 is loading CWS v%2", name player, _version], 2, ["CWS"]], "ccl_fnc_ShowMessage", false] call ccl_fnc_GlobalExec;
 
 	["Initializing ...", 2, ["CWS"]] call ccl_fnc_ShowMessage;
 

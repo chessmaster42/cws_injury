@@ -4,21 +4,51 @@
 private["_unit"];
 _unit = _this select 0;
 
-_unit setVariable ["cws_ais_side", _side, true];
-_unit setVariable ["cws_ais_itemStorage", [0,0]];
-_unit setVariable ["cws_ais_unit_died", false];
+//If the unit is invalid, exit immediately
+if(isNil "_unit") exitWith {};
+if(isNull _unit) exitWith {};
 
-if(isNil {_unit getVariable "cws_ais_bodyhit"}) then {_unit setVariable ["cws_ais_bodyhit",0]};
-if(isNil {_unit getVariable "cws_ais_headhit"}) then {_unit setVariable ["cws_ais_headhit",0]};
-if(isNil {_unit getVariable "cws_ais_overall"}) then {_unit setVariable ["cws_ais_overall",0]};
-if(isNil {_unit getVariable "cws_ais_legshit"}) then {_unit setVariable ["cws_ais_legshit",0]};
-if(isNil {_unit getVariable "cws_ais_handshit"}) then {_unit setVariable ["cws_ais_handshit",0]};
+//If the unit is dead, exit immediately
+if(!alive _unit) exitWith {};
 
-if(isNil {_unit getVariable "cws_ais_agony"}) then {_unit setVariable ["cws_ais_agony", false]};
-if(isNil {_unit getVariable "unit_is_unconscious"}) then {_unit setVariable ["unit_is_unconscious", false]};
-if(isNil {_unit getVariable "cws_ais_leader"}) then {_unit setVariable ["cws_ais_leader", false]};
+if(local _unit) then {
+	_unit setVariable ["cws_ais_side", side _unit, true];
 
-if(isNil {_unit getVariable "dragger"}) then {_unit setVariable ["dragger", ObjNull]};
-if(isNil {_unit getVariable "healer"}) then {_unit setVariable ["healer", ObjNull]};
+	_unit setVariable ["cws_ais_itemStorage", [0,0], true];
+	_unit setVariable ["cws_ais_unit_died", false, true];
 
-if(isNil {_unit getVariable "cws_ais_fall_in_agony_time_delay"}) then {_unit setVariable ["cws_ais_fall_in_agony_time_delay", 0]};
+	_unit setVariable ["cws_ais_bodyhit", _unit getVariable ["cws_ais_bodyhit", 0], true];
+	_unit setVariable ["cws_ais_headhit", _unit getVariable ["cws_ais_headhit", 0], true];
+	_unit setVariable ["cws_ais_overall", _unit getVariable ["cws_ais_overall", 0], true];
+	_unit setVariable ["cws_ais_legshit", _unit getVariable ["cws_ais_legshit", 0], true];
+	_unit setVariable ["cws_ais_handshit", _unit getVariable ["cws_ais_handshit", 0], true];
+
+	_unit setVariable ["cws_ais_agony", _unit getVariable ["cws_ais_agony", false], true];
+	_unit setVariable ["unit_is_unconscious", _unit getVariable ["unit_is_unconscious", false], true];
+	_unit setVariable ["cws_ais_leader", _unit getVariable ["cws_ais_leader", false], true];
+
+	_unit setVariable ["dragger", _unit getVariable ["dragger", ObjNull], true];
+	_unit setVariable ["healer", _unit getVariable ["healer", ObjNull], true];
+
+	_unit setVariable ["cws_ais_fall_in_agony_time_delay", _unit getVariable ["cws_ais_fall_in_agony_time_delay", 0], true];
+} else {
+	_unit setVariable ["cws_ais_side", side _unit];
+
+	_unit setVariable ["cws_ais_itemStorage", [0,0]];
+	_unit setVariable ["cws_ais_unit_died", false];
+	
+	_unit setVariable ["cws_ais_bodyhit", _unit getVariable ["cws_ais_bodyhit", 0]];
+	_unit setVariable ["cws_ais_headhit", _unit getVariable ["cws_ais_headhit", 0]];
+	_unit setVariable ["cws_ais_overall", _unit getVariable ["cws_ais_overall", 0]];
+	_unit setVariable ["cws_ais_legshit", _unit getVariable ["cws_ais_legshit", 0]];
+	_unit setVariable ["cws_ais_handshit", _unit getVariable ["cws_ais_handshit", 0]];
+
+	_unit setVariable ["cws_ais_agony", _unit getVariable ["cws_ais_agony", false]];
+	_unit setVariable ["unit_is_unconscious", _unit getVariable ["unit_is_unconscious", false]];
+	_unit setVariable ["cws_ais_leader", _unit getVariable ["cws_ais_leader", false]];
+
+	_unit setVariable ["dragger", _unit getVariable ["dragger", ObjNull]];
+	_unit setVariable ["healer", _unit getVariable ["healer", ObjNull]];
+
+	_unit setVariable ["cws_ais_fall_in_agony_time_delay", _unit getVariable ["cws_ais_fall_in_agony_time_delay", 0]];
+};

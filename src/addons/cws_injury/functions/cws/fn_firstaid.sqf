@@ -98,7 +98,7 @@ if (!_isHealable) exitWith {
 if (_healer distance _unit > cws_ais_firstaid_distance) exitWith {
 	if (isPlayer _healer) then {
 		if(_healer == player) then {
-			[format ["%1 is too far away to be healed.", name _unit], 0] spawn ccl_fnc_showMessage
+			[format ["%1 is too far away to be healed.", _unit], 0] spawn ccl_fnc_showMessage
 		};
 	} else {
 		if(cws_ais_debugging) then {
@@ -192,7 +192,7 @@ if(_heal_time < 10) then {_heal_time = 10};
 [[_unit, 0], "cws_fnc_SetHealingProgress", false] call ccl_fnc_GlobalExec;
 
 //Run the healing progress bar
-while {time - _time < _heal_time && {!_healerStopped}} do {
+while {time - _time < _heal_time && !_healerStopped} do {
 	//Run this loop every half second
 	sleep 0.5;
 
