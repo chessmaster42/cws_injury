@@ -3,11 +3,11 @@
 /*
 item0[] = {"start",0,250,-609.394836,-334.812927,-555.514771,-300.866486,0.000000,"start"};
 item1[] = {"true",8,218,-389.901001,-334.008606,-342.710327,-303.406647,0.000000,"true"};
-item2[] = {"healthy",2,4346,-121.197121,-346.219635,-23.077042,-290.459534,0.000000,"healthy"};
+item2[] = {"healthy",2,250,-121.197121,-346.219635,-23.077042,-290.459534,0.000000,"healthy"};
 item3[] = {"fall_in_agony",4,218,-117.047508,-259.680817,-27.047356,-209.680801,0.000000,"fall in agony"};
 item4[] = {"agony",2,250,-122.805183,-25.815657,-21.444450,40.464771,0.000000,"agony"};
 item5[] = {"dead",4,218,102.903969,-176.190262,207.572708,-111.208710,100.000000,"dead"};
-item6[] = {"healed",4,218,-228.072388,-166.228516,-175.571960,-134.978012,50.000000,"healed"};
+item6[] = {"healed",4,4314,-228.072388,-166.228516,-175.571960,-134.978012,50.000000,"healed"};
 item7[] = {"die___clean_up",2,250,122.001694,-247.638123,188.334717,-215.044495,0.000000,"die &" \n "clean up"};
 item8[] = {"is_playable",4,218,118.492813,-343.494995,190.724411,-293.914337,0.000000,"is" \n "playable"};
 item9[] = {"un_anim",2,250,-390.007019,-162.277451,-341.908752,-138.116821,0.000000,"un-anim"};
@@ -86,7 +86,7 @@ link45[] = {33,4};
 link46[] = {34,35};
 link47[] = {35,24};
 globals[] = {0.000000,0,0,0,0,640,480,1,56,6316128,1,-652.281982,517.110352,426.921021,-567.772156,933,911,1};
-window[] = {2,-1,-1,-1,-1,987,250,1509,250,3,951};
+window[] = {2,-1,-1,-1,-1,837,100,1359,100,3,951};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -287,7 +287,7 @@ class FSM
           priority = 50.000000;
           to="un_anim";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!(_unit getVariable ""cws_ais_agony"")"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(_unit getVariable [""cws_ais_agony"", false])"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -297,7 +297,7 @@ class FSM
           priority = 10.000000;
           to="drag_anim1";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!isNull(_unit getVariable ""dragger"")"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!isNull(_unit getVariable [""dragger"", objnull])"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -307,7 +307,7 @@ class FSM
           priority = 8.000000;
           to="first_aid__anim";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!isNull (_unit getVariable ""healer"")"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!isNull (_unit getVariable [""healer"", objnull])"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -512,7 +512,7 @@ class FSM
           priority = 1.000000;
           to="agony";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_dragger = _unit getVariable ""dragger"";" \n
+          condition=/*%FSM<CONDITION""">*/"_dragger = _unit getVariable [""dragger"", objnull];" \n
            "" \n
            "isNull _dragger" \n
            "" \n
@@ -551,7 +551,7 @@ class FSM
           priority = 1.000000;
           to="agony";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"isNull (_unit getVariable ""healer"") || !alive (_unit getVariable ""healer"")"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"isNull (_unit getVariable [""healer"", objnull]) || !alive (_unit getVariable [""healer"", objnull])"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -563,7 +563,7 @@ class FSM
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"animationState _unit != ""ainjppnemstpsnonwrfldnon""				&&" \n
            "animationState _unit != ""ainjppnemstpsnonwrfldnon_rolltoback""	&&" \n
-           "_unit getVariable ""cws_ais_agony"""/*%FSM</CONDITION""">*/;
+           "_unit getVariable [""cws_ais_agony"", false]"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -685,14 +685,14 @@ class FSM
     {
       name = "remove_first_aid";
       init = /*%FSM<STATEINIT""">*/"if ((items _unit) find ""FirstAidKit"" >= 0) then {" \n
-       "	_store = _unit getVariable ""cws_ais_itemStorage"";" \n
+       "	_store = _unit getVariable [""cws_ais_itemStorage"", [0,0]];" \n
        "	_fak = _store select 0;" \n
        "	_fak = _fak + 1;" \n
        "	_unit setVariable [""cws_ais_itemStorage"", [_fak,_store select 1]];" \n
        "	_unit removeItem ""FirstAidKit"";" \n
        "};" \n
        "if ((items _unit) find ""Medikit"" >= 0) then {" \n
-       "	_store = _unit getVariable ""cws_ais_itemStorage"";" \n
+       "	_store = _unit getVariable [""cws_ais_itemStorage"", [0,0]];" \n
        "	_mk = _store select 1;" \n
        "	_mk = _mk + 1;" \n
        "	_unit setVariable [""cws_ais_itemStorage"", [_store select 0, _mk]];" \n
