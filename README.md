@@ -31,7 +31,8 @@ Zeus Features
 -	Configure CWS module
 -	Failsafe reload module
 -	Load CWS module
--	Revive Unit module
+-	Revive Unit module - Brings unit back out of unconscious/agony state
+-	Damage Unit module - Puts unit into unconscious/agony state
 
 Known Issues
 ------------
@@ -73,6 +74,14 @@ Credits
 Changelog
 =========
 
+-	v1.1.4 Released
+  - Changed most calls to ccl_fnc_GlobalExec to be NOT persistent (fixed many lag and performance issues)
+  - Added start of version broadcast mechanism
+  - Added some safety checks to see if player is a curator
+  - Removed the use of the 'name' function in some places where the unit is possibly not alive
+  - Added some general error handling
+  - Restructured cws_fnc_setupUnitVariables to (hopefully) synchronize better
+  - Fixed a few minor bugs in the main FSM
 -	v1.1.3 Released
   - Added Damage Unit module that is the antithesis of the Revive Unit module
   - Changed config settings to execute globally
