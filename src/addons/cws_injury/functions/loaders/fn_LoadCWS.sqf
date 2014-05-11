@@ -6,9 +6,12 @@ _unit = _this select 0;
 _appliesTo = if(count _this > 1) then {_this select 1} else {nil};
 
 //Recursively load CWS if the Applies To param is set
-if(!isNil "_appliesTo") then {
+if(!isNil "_appliesTo") exitWith {
 	_unitList = [];
 	switch(_appliesTo) do {
+		case 0: {
+			_unitList = [_unit];
+		};
 		case 1: {
 			_group = group _unit;
 			_unitList = units _group;

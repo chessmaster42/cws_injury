@@ -122,7 +122,7 @@ if (_healer distance _unit > cws_ais_firstaid_distance) exitWith {
 
 //Add the healer to the unit
 _unit setVariable ["healer", _healer];
-[[_unit, _healer], "cws_fnc_setHealer"] spawn ccl_fnc_GlobalExec;
+[[_unit, _healer], "cws_fnc_setHealer", false] spawn ccl_fnc_GlobalExec;
 
 //Set the healing in progress flag on the healer
 _healer setVariable ["cws_injury_HealingInProgress", true, true];
@@ -189,7 +189,7 @@ _heal_time = _damage * 60 + _revived_counter * 5;
 if(_heal_time < 10) then {_heal_time = 10};
 
 //Clear the healing progress value
-[[_unit, 0], "cws_fnc_SetHealingProgress"] call ccl_fnc_GlobalExec;
+[[_unit, 0], "cws_fnc_SetHealingProgress", false] call ccl_fnc_GlobalExec;
 
 //Run the healing progress bar
 while {time - _time < _heal_time && {!_healerStopped}} do {
@@ -217,7 +217,7 @@ while {time - _time < _heal_time && {!_healerStopped}} do {
 	if(!(_has_medikit && _isMedic) && !_has_firstaidkit) then {_healerStopped = true};
 
 	//Update the healing progress
-	[[_unit, _healingProgress], "cws_fnc_SetHealingProgress"] call ccl_fnc_GlobalExec;
+	[[_unit, _healingProgress], "cws_fnc_SetHealingProgress", false] call ccl_fnc_GlobalExec;
 };
 
 //------------------------------------------------------------------\\
@@ -226,7 +226,7 @@ while {time - _time < _heal_time && {!_healerStopped}} do {
 
 //Clear the healing progress
 //TODO - Find a way to leverage this for a 'resume healing' mechanism
-[[_unit, 0], "cws_fnc_SetHealingProgress"] call ccl_fnc_GlobalExec;
+[[_unit, 0], "cws_fnc_SetHealingProgress", false] call ccl_fnc_GlobalExec;
 
 //Remove player animation event handler
 if (_healer == player) then {_healer removeEventHandler ["AnimChanged", _animChangeEVH]};
@@ -237,7 +237,7 @@ detach _unit;
 
 //Clear the healer from the unit
 _unit setVariable ["healer", objnull];
-[[_unit, objnull], "cws_fnc_setHealer"] spawn ccl_fnc_GlobalExec;
+[[_unit, objnull], "cws_fnc_setHealer", false] spawn ccl_fnc_GlobalExec;
 
 //Unset the healing in progress flag
 _healer setVariable ["cws_injury_HealingInProgress", false, true];

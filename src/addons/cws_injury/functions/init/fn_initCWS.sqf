@@ -64,10 +64,15 @@ cws_ais_killcam_quotes = [
 [] spawn {
 	[] call ccl_fnc_WaitForGameLoad;
 
+	//Broadcast our version info
+	_modConfig = (configFile >> "CfgPatches" >> "cws_injury");
+	_version = gettext (_modConfig >> "versionStr");
+	[[format ["Loading CWS v%1", _version], 2, ["CWS"]], "ccl_fnc_ShowMessage", false] call ccl_fnc_GlobalExec;
+
 	["Initializing ...", 2, ["CWS"]] call ccl_fnc_ShowMessage;
 
 	//Globally load the system on all playable units
-	[[nil, 3], "cws_fnc_LoadCWS"] call ccl_fnc_GlobalExec;
+	[[nil, 3], "cws_fnc_LoadCWS", false] call ccl_fnc_GlobalExec;
 
 	//Load the curator 3D icons
 	if(isServer && isDedicated) then {
