@@ -66,7 +66,7 @@ class RscDisplayAttributeModuleCWSConfigCheckboxes: RscDisplayAttributeModule
 {
 	onSetFocus = "_this call cws_fnc_InitConfigCheckboxes";
 	idc = 43030;
-	h = "7.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	h = "8.1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 	class controls: controls
 	{
 		class Title1: RscText
@@ -174,6 +174,24 @@ class RscDisplayAttributeModuleCWSConfigCheckboxes: RscDisplayAttributeModule
 			idc = 43042;
 			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "5.5 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+		class Title7: RscText
+		{
+			idc = 43043;
+			text = "Enable Bleeding Counter Display";
+			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "6.6 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class Value7: RscCheckBox
+		{
+			idc = 43044;
+			x = "10.1 * (((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "6.6 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "1 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};

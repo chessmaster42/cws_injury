@@ -13,13 +13,15 @@ _ctrl cbSetChecked cws_ais_revive_guaranty;
 _ctrl = _display displayCtrl 43034;
 _ctrl cbSetChecked cws_ais_allow_self_revive;
 _ctrl = _display displayCtrl 43036;
-_ctrl cbSetChecked (cws_ais_show_injury_marker == 1);
+_ctrl cbSetChecked cws_ais_show_injury_marker;
 _ctrl = _display displayCtrl 43038;
-_ctrl cbSetChecked (cws_ais_show_injury_message == 1);
+_ctrl cbSetChecked cws_ais_show_injury_message;
 _ctrl = _display displayCtrl 43040;
-_ctrl cbSetChecked (cws_ais_show_3d_icons == 1);
+_ctrl cbSetChecked cws_ais_show_3d_icons;
 _ctrl = _display displayCtrl 43042;
-_ctrl cbSetChecked (cws_ais_dead_dialog == 1);
+_ctrl cbSetChecked cws_ais_dead_dialog;
+_ctrl = _display displayCtrl 43044;
+_ctrl cbSetChecked cws_ais_bleeding_display;
 
 //Setup handler when OK is clicked
 _ctrlButtonOK = _display displayCtrl IDC_OK;
@@ -32,11 +34,13 @@ _ctrlButtonOK ctrlAddEventHandler ["buttonclick", {
 	_ctrl = _display displayCtrl 43034;
 	[["cws_ais_allow_self_revive", (cbChecked _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43036;
-	[["cws_ais_show_injury_marker", (if(cbChecked _ctrl) then {1} else {0})], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
+	[["cws_ais_show_injury_marker", (cbChecked _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43038;
-	[["cws_ais_show_injury_message", (if(cbChecked _ctrl) then {1} else {0})], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
+	[["cws_ais_show_injury_message", (cbChecked _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43040;
-	[["cws_ais_show_3d_icons", (if(cbChecked _ctrl) then {1} else {0})], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
+	[["cws_ais_show_3d_icons", (cbChecked _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 	_ctrl = _display displayCtrl 43042;
-	[["cws_ais_dead_dialog", (if(cbChecked _ctrl) then {1} else {0})], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
+	[["cws_ais_dead_dialog", (cbChecked _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
+	_ctrl = _display displayCtrl 43044;
+	[["cws_ais_bleeding_display", (cbChecked _ctrl)], "cws_fnc_LoadConfigSetting"] spawn ccl_fnc_GlobalExec;
 }];

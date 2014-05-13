@@ -95,7 +95,7 @@ _unit setVariable ["cws_ais_aisInit", true];
 };
 
 //Setup the 3D icons if enabled
-if (cws_ais_show_3d_icons == 1 && (_unit == player)) then {
+if (cws_ais_show_3d_icons && (_unit == player)) then {
 	_3d = addMissionEventHandler ["Draw3D", {
 		_player_is_medic = [player] call cws_fnc_isMedic;
 		_playerFaction = side player;
@@ -159,7 +159,7 @@ if (_unit == player) then {
 };
 
 //Setup the death cam if enabled
-if (cws_ais_dead_dialog == 1) then {
+if (cws_ais_dead_dialog) then {
 	if (isNil "respawndelay") then {
 		_num = getNumber (missionConfigFile/"respawndelay");
 		if (_num != 0) then {

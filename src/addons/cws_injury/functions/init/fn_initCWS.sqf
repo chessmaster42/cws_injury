@@ -1,19 +1,19 @@
-cws_ais_debugging				=	false;
+cws_ais_debugging				=	false;			//	Enable to turn on full debugging for CWS (default: false)
 
-cws_ais_revive_guaranty         =   true;           //  set to true for a 100% revive chance. False, and the unit can die immediately
-cws_ais_allow_self_revive		=	true;			//	Enable if you want to allow the medic to self-revive using first aid while down. Key combo is Ctrl+E
-cws_ais_show_injury_marker      =   1;              //  Set value to 1 and a marker show injured units on the map. 0 means this feature is disabled.
-cws_ais_show_injury_message     =   1;              //  Set value to 1 and a message in side chat will show when a unit is injured. 0 means this feature is disabled.
-cws_ais_show_3d_icons           =   1;              //  Set value to 1 and a 3D-icon show you ingame the position of injured units within a range of 30 metres (default). 0 means this feature is disabled.
-cws_ais_dead_dialog             =   0;              //  Set value to 1 to enable the deadcam and the dead dialog. 0 means this feature is disabled.
+cws_ais_revive_guaranty         =   true;			//	Enable for a 100% revive chance. False, and the unit can die immediately (default: true)
+cws_ais_allow_self_revive		=	true;			//	Enable if you want to allow the medic to self-revive using first aid while down. Key combo is Ctrl+E (default: true)
+cws_ais_show_injury_marker      =   true;			//	Enable to show a marker for injured units on the map (default: true)
+cws_ais_show_injury_message     =   true;			//	Enable to show a message in side chat will show when a unit is injured (default: true)
+cws_ais_show_3d_icons           =   true;			//	Enable and a 3D icon will show you in-game the position of injured units within a range of 30 metres (default: true)
+cws_ais_dead_dialog             =   false;			//	Enable the deadcam and the dead dialog (default: false)
+cws_ais_bleeding_display		=	true;			//	Enable the bleeding counter display for the injured unit (default: true)
 
-cws_ais_rambofactor             =   3;              //  a higher value means more damage tolerance for the unit before the unit are unconcious ( 1== low, 2 == normal, 3 == higher, 5 == extreme)
-cws_ais_random_lifetime_factor  =   200;            //  a higher value means you got more time to heal the unit before bleeding out and die
-                                                    //  the time depends on the damage the unit takes before they are unconcious. The time is randomized and not exact.
+cws_ais_rambofactor             =   3;              //  Damage tolerance for the unit before the unit are unconcious ( 1== low, 2 == normal, 3 == higher, 5 == extreme)
+cws_ais_random_lifetime_factor  =   200;            //  Base time for bleeding out. The final time depends on the damage the unit takes before they are unconcious. The time is randomized and not exact.
 cws_ais_3d_icon_range			=	50;				//	Max range for the 3D icons, if enabled
-cws_ais_delTime                 =   300;			//  Time in seconds until dead bodys are deleted. If zero seconds are select this feature is disabled. (only units with CWS loaded will be deleted)
+cws_ais_delTime                 =   300;			//  Time in seconds until dead bodys are deleted. If set to 0 this feature is disabled. (only units with CWS loaded will be deleted)
 cws_ais_firstaid_distance		=	2;				//	Maximum distance between the healer and the injured to do first aid
-cws_ais_damage_limit			=	0.9;			//	Maximum damage a unit can have when healthy or during agony beginning delay
+cws_ais_damage_limit			=	0.9;			//	Maximum damage a unit will receive if revive gauranty is enabled
 
 cws_ais_killcam_quotes = [
     [(localize "STR_QUOTE_1"),(localize "STR_AUTHOR_1")],
