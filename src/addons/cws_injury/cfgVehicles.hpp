@@ -16,7 +16,7 @@ class cws_injury_ModuleConfig: cws_injury_ModuleBase
 
 	curatorInfoType = "RscDisplayAttributesModuleCWSConfig";
 };
-class cws_injury_ModuleConfigEditor: cws_injury_ModuleBase
+class cws_injury_ModuleConfig_Editor: cws_injury_ModuleBase
 {
 	subCategory = "System";
 
@@ -242,6 +242,26 @@ class cws_injury_ModuleCWSLoad: cws_injury_ModuleBase
 
 	displayName = "Load CWS";
 	function = "cws_fnc_ModuleCWSLoad";
+};
+class cws_injury_ModuleCWSLoad_Editor: cws_injury_ModuleBase
+{
+	scope = 2;
+
+	displayName = "Load CWS";
+	function = "cws_fnc_ModuleCWSLoadEditor";
+	isTriggerActivated = 1;
+	isDisposable = 1;
+
+	class ModuleDescription
+	{
+		description = "Load CWS on synchronized units";
+		sync[] = {"Anything"};
+		class Anything
+		{
+			description = "$STR_A3_CfgVehicles_ModuleCuratorAddAddons_F_ModuleDescription_Anything";
+			optional = 1;
+		};
+	};
 };
 class cws_injury_ModuleRevive: cws_injury_ModuleBase
 {

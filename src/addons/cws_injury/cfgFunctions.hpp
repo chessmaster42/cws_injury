@@ -21,6 +21,7 @@ class cws_injury
 		file = "\cws_injury\functions\modules";
 		class moduleConfigEditor{};
 		class moduleCWSLoad{};
+		class moduleCWSLoadEditor{};
 		class moduleDamageUnit{};
 		class moduleFailsafeReload{};
 		class moduleRevive{};
