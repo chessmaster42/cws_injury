@@ -19,6 +19,7 @@ class cws_injury
 	class modules
 	{
 		file = "\cws_injury\functions\modules";
+		class moduleConfigEditor{};
 		class moduleCWSLoad{};
 		class moduleDamageUnit{};
 		class moduleFailsafeReload{};

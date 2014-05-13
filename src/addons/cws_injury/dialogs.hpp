@@ -72,7 +72,7 @@ class RscDisplayAttributeModuleCWSConfigCheckboxes: RscDisplayAttributeModule
 		class Title1: RscText
 		{
 			idc = 43031;
-			text = "Revive Guaranty";
+			text = "Enable Revive Guaranty";
 			x = "0 * (((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "0 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "10 * (((safezoneW / safezoneH) min 1.2) / 40)";

@@ -22,9 +22,9 @@ class CfgPatches
 		};
 		author[] = {"Chessmaster42"};
 		authorUrl = "https://github.com/chessmaster42/cws_injury";
-		version = 1.1.4;
-		versionStr = "1.1.4";
-		versionAr[] = {1,1,4};
+		version = 1.2.0;
+		versionStr = "1.2.0";
+		versionAr[] = {1,2,0};
 	};
 };
 
