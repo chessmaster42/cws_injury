@@ -15,10 +15,17 @@ if(cws_ais_debugging) then {
 _scaled_damage = _damage / (cws_ais_rambofactor max 1);
 _agony = false;
 
-//Stop any damage that doesn't have a source defined
-//This is a known bug with HandleDamage EVH
-//TODO - Check and see if this is still needed
-if(isNull _source) exitWith {0};
+_curatorMunitions = ["ModuleOrdnanceMortar_F_ammo", "ModuleOrdnanceHowitzer_F_ammo", "ModuleOrdnanceRocket_F_Ammo"];
+
+//Skip null source check if the ammo is from one of the Curator ordnance types
+if(_ammo in _curatorMunitions) then {
+	//Do nothing
+} else {
+	//Stop any damage that doesn't have a source defined
+	//This is a known bug with HandleDamage EVH
+	//TODO - Check and see if this is still needed
+	if(isNull _source) exitWith {0};
+};
 
 //Skip over the unit if it's not local
 if(!local _unit) exitWith {0};

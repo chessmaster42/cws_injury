@@ -101,32 +101,44 @@ if (cws_ais_show_3d_icons && (_unit == player)) then {
 		_playerFaction = side player;
 		{
 			{
-				if(isNil "_x") then {
-					//Do nothing
-				} else {
-					if(isNull _x) then {
-						//Do nothing
-					} else {
-						if(alive _x) then {
-							if((side _x) == _playerFaction) then {
-								_distance = ceil (_x distance player);
-								if (_distance < cws_ais_3d_icon_range && (_x getVariable ["cws_ais_agony", false])) then {
-									_message = format["%1 (%2m)", name _x, _distance];
-									_icon_size = 0.5;
-									_text_size = 0.025;
-									_iconColor = [1,0,0,1];
-									_pos = visiblePosition _x;
-									if(_player_is_medic) then {
-										_life_remaining = _x getVariable "cws_ais_bleedout_time";
-										_message = _message + format[" (%1%2)", ceil (_life_remaining * 100), "%"];
-										_icon_size = 1.0;
-										_text_size = 0.05;
-									};
-									drawIcon3D["a3\ui_f\data\map\MapControl\hospital_ca.paa", _iconColor, _pos, _icon_size, _icon_size, 0, _message, 0, _text_size];
-								};
-							};
-						};
+				try {
+					if(isNil "_x") then {
+						throw "Unit is nil";
 					};
+					if(isNull _x) then {
+						throw "Unit is null";
+					};
+					if(!alive _x) then {
+						throw "Unit is dead";
+					};
+					if (!(_x getVariable ["cws_ais_aisInit", false])) then {
+						throw "Unit is not running CWS";
+					};
+					if((side _x) != _playerFaction) then {
+						throw "Unit not on same side as player";
+					};
+					if(!(_x getVariable ["cws_ais_agony", false])) then {
+						throw "Unit is not in agony";
+					};
+					_distance = ceil (_x distance player);
+					if (_distance >= cws_ais_3d_icon_range) then {
+						throw "Unit is too far away";
+					};
+
+					_message = format["%1 (%2m)", name _x, _distance];
+					_icon_size = 0.5;
+					_text_size = 0.025;
+					_iconColor = [1,0,0,1];
+					_pos = visiblePosition _x;
+					if(_player_is_medic) then {
+						_life_remaining = _x getVariable "cws_ais_bleedout_time";
+						_message = _message + format[" (%1%2)", ceil (_life_remaining * 100), "%"];
+						_icon_size = 1.0;
+						_text_size = 0.05;
+					};
+					drawIcon3D["a3\ui_f\data\map\MapControl\hospital_ca.paa", _iconColor, _pos, _icon_size, _icon_size, 0, _message, 0, _text_size];
+				} catch {
+					//Do nothing
 				};
 			} forEach units _x;
 		} forEach allGroups;
